@@ -1,0 +1,507 @@
+
+                   SSUUMMMMAARRYY OOFF LLEESSSS CCOOMMMMAANNDDSS
+
+      Commands marked with * may be preceded by a number, _N.
+      Notes in parentheses indicate the behavior if _N is given.
+      A key preceded by a caret indicates the Ctrl key; thus ^K is ctrl-K.
+
+  h  H                 Display this help.
+  q  :q  Q  :Q  ZZ     Exit.
+ ---------------------------------------------------------------------------
+
+                           MMOOVVIINNGG
+
+  e  ^E  j  ^N  CR  *  Forward  one line   (or _N lines).
+  y  ^Y  k  ^K  ^P  *  Backward one line   (or _N lines).
+  f  ^F  ^V  SPACE  *  Forward  one window (or _N lines).
+  b  ^B  ESC-v      *  Backward one window (or _N lines).
+  z                 *  Forward  one window (and set window to _N).
+  w                 *  Backward one window (and set window to _N).
+  ESC-SPACE         *  Forward  one window, but don't stop at end-of-file.
+  d  ^D             *  Forward  one half-window (and set half-window to _N).
+  u  ^U             *  Backward one half-window (and set half-window to _N).
+  ESC-)  RightArrow *  Right one half screen width (or _N positions).
+  ESC-(  LeftArrow  *  Left  one half screen width (or _N positions).
+  ESC-}  ^RightArrow   Right to last column displayed.
+  ESC-{  ^LeftArrow    Left  to first column.
+  F                    Forward forever; like "tail -f".
+  ESC-F                Like F but stop when search pattern is found.
+  r  ^R  ^L            Repaint screen.
+  R                    Repaint screen, discarding buffered input.
+        ---------------------------------------------------
+        Default "window" is the screen height.
+        Default "half-window" is half of the screen height.
+ ---------------------------------------------------------------------------
+
+                          SSEEAARRCCHHIINNGG
+
+  /_p_a_t_t_e_r_n          *  Search forward for (_N-th) matching line.
+  ?_p_a_t_t_e_r_n          *  Search backward for (_N-th) matching line.
+  n                 *  Repeat previous search (for _N-th occurrence).
+  N                 *  Repeat previous search in reverse direction.
+  ESC-n             *  Repeat previous search, spanning files.
+  ESC-N             *  Repeat previous search, reverse dir. & spanning files.
+  ^O^N  ^On         *  Search forward for (_N-th) OSC8 hyperlink.
+  ^O^P  ^Op         *  Search backward for (_N-th) OSC8 hyperlink.
+  ^O^L  ^Ol            Jump to the currently selected OSC8 hyperlink.
+  ESC-u                Undo (toggle) search highlighting.
+  ESC-U                Clear search highlighting.
+  &_p_a_t_t_e_r_n          *  Display only matching lines.
+        ---------------------------------------------------
+        A search pattern may begin with one or more of:
+        ^N or !  Search for NON-matching lines.
+        ^E or *  Search multiple files (pass thru END OF FILE).
+        ^F or @  Start search at FIRST file (for /) or last file (for ?).
+        ^K       Highlight matches, but don't move (KEEP position).
+        ^R       Don't use REGULAR EXPRESSIONS.
+        ^S _n     Search for match in _n-th parenthesized subpattern.
+        ^W       WRAP search if no match found.
+        ^L       Enter next character literally into pattern.
+ ---------------------------------------------------------------------------
+
+                           JJUUMMPPIINNGG
+
+  g  <  ESC-<       *  Go to first line in file (or line _N).
+  G  >  ESC->       *  Go to last line in file (or line _N).
+  p  %              *  Go to beginning of file (or _N percent into file).
+  t                 *  Go to the (_N-th) next tag.
+  T                 *  Go to the (_N-th) previous tag.
+  {  (  [           *  Find close bracket } ) ].
+  }  )  ]           *  Find open bracket { ( [.
+  ESC-^F _<_c_1_> _<_c_2_>  *  Find close bracket _<_c_2_>.
+  ESC-^B _<_c_1_> _<_c_2_>  *  Find open bracket _<_c_1_>.
+        ---------------------------------------------------
+        Each "find close bracket" command goes forward to the close bracket 
+          matching the (_N-th) open bracket in the top line.
+        Each "find open bracket" command goes backward to the open bracket 
+          matching the (_N-th) close bracket in the bottom line.
+
+  m_<_l_e_t_t_e_r_>            Mark the current top line with <letter>.
+  M_<_l_e_t_t_e_r_>            Mark the current bottom line with <letter>.
+  '_<_l_e_t_t_e_r_>            Go to a previously marked position.
+  ''                   Go to the previous position.
+  ^X^X                 Same as '.
+  ESC-m_<_l_e_t_t_e_r_>        Clear a mark.
+        ---------------------------------------------------
+        A mark is any upper-case or lower-case letter.
+        Certain marks are predefined:
+             ^  means  beginning of the file
+             $  means  end of the file
+ ---------------------------------------------------------------------------
+
+                        CCHHAANNGGIINNGG FFIILLEESS
+
+  :e [_f_i_l_e]            Examine a new file.
+  ^X^V                 Same as :e.
+  :n                *  Examine the (_N-th) next file from the command line.
+  :p                *  Examine the (_N-th) previous file from the command line.
+  :x                *  Examine the first (or _N-th) file from the command line.
+  ^O^O                 Open the currently selected OSC8 hyperlink.
+  :d                   Delete the current file from the command line list.
+  =  ^G  :f            Print current file name.
+ ---------------------------------------------------------------------------
+
+                    MMIISSCCEELLLLAANNEEOOUUSS CCOOMMMMAANNDDSS
+
+  -_<_f_l_a_g_>              Toggle a command line option [see OPTIONS below].
+  --_<_n_a_m_e_>             Toggle a command line option, by name.
+  __<_f_l_a_g_>              Display the setting of a command line option.
+  ___<_n_a_m_e_>             Display the setting of an option, by name.
+  +_c_m_d                 Execute the less cmd each time a new file is examined.
+
+  !_c_o_m_m_a_n_d             Execute the shell command with $SHELL.
+  #_c_o_m_m_a_n_d             Execute the shell command, expanded like a prompt.
+  |XX_c_o_m_m_a_n_d            Pipe file between current pos & mark XX to shell command.
+  s _f_i_l_e               Save input to a file.
+  v                    Edit the current file with $VISUAL or $EDITOR.
+  V                    Print version number of "less".
+ ---------------------------------------------------------------------------
+
+                           OOPPTTIIOONNSS
+
+        Most options may be changed either on the command line,
+        or from within less by using the - or -- command.
+        Options may be given in one of two forms: either a single
+        character preceded by a -, or a name preceded by --.
+
+  -?  ........  --help
+                  Display help (from command line).
+  -a  ........  --search-skip-screen
+                  Search skips current screen.
+  -A  ........  --SEARCH-SKIP-SCREEN
+                  Search starts just after target line.
+  -b [_N]  ....  --buffers=[_N]
+                  Number of buffers.
+  -B  ........  --auto-buffers
+                  Don't automatically allocate buffers for pipes.
+  -c  ........  --clear-screen
+                  Repaint by clearing rather than scrolling.
+  -d  ........  --dumb
+                  Dumb terminal.
+  -D xx_c_o_l_o_r  .  --color=xx_c_o_l_o_r
+                  Set screen colors.
+  -e  -E  ....  --quit-at-eof  --QUIT-AT-EOF
+                  Quit at end of file.
+  -f  ........  --force
+                  Force open non-regular files.
+  -F  ........  --quit-if-one-screen
+                  Quit if entire file fits on first screen.
+  -g  ........  --hilite-search
+                  Highlight only last match for searches.
+  -G  ........  --HILITE-SEARCH
+                  Don't highlight any matches for searches.
+  -h [_N]  ....  --max-back-scroll=[_N]
+                  Backward scroll limit.
+  -i  ........  --ignore-case
+                  Ignore case in searches that do not contain uppercase.
+  -I  ........  --IGNORE-CASE
+                  Ignore case in all searches.
+  -j [_N]  ....  --jump-target=[_N]
+                  Screen position of target lines.
+  -J  ........  --status-column
+                  Display a status column at left edge of screen.
+  -k _f_i_l_e  ...  --lesskey-file=_f_i_l_e
+                  Use a compiled lesskey file.
+  -K  ........  --quit-on-intr
+                  Exit less in response to ctrl-C.
+  -L  ........  --no-lessopen
+                  Ignore the LESSOPEN environment variable.
+  -m  -M  ....  --long-prompt  --LONG-PROMPT
+                  Set prompt style.
+  -n .........  --line-numbers
+                  Suppress line numbers in prompts and messages.
+  -N .........  --LINE-NUMBERS
+                  Display line number at start of each line.
+  -o [_f_i_l_e] ..  --log-file=[_f_i_l_e]
+                  Copy to log file (standard input only).
+  -O [_f_i_l_e] ..  --LOG-FILE=[_f_i_l_e]
+                  Copy to log file (unconditionally overwrite).
+  -p _p_a_t_t_e_r_n .  --pattern=[_p_a_t_t_e_r_n]
+                  Start at pattern (from command line).
+  -P [_p_r_o_m_p_t]   --prompt=[_p_r_o_m_p_t]
+                  Define new prompt.
+  -q  -Q  ....  --quiet  --QUIET  --silent --SILENT
+                  Quiet the terminal bell.
+  -r  -R  ....  --raw-control-chars  --RAW-CONTROL-CHARS
+                  Output "raw" control characters.
+  -s  ........  --squeeze-blank-lines
+                  Squeeze multiple blank lines.
+  -S  ........  --chop-long-lines
+                  Chop (truncate) long lines rather than wrapping.
+  -t _t_a_g  ....  --tag=[_t_a_g]
+                  Find a tag.
+  -T [_t_a_g_s_f_i_l_e] --tag-file=[_t_a_g_s_f_i_l_e]
+                  Use an alternate tags file.
+  -u  -U  ....  --underline-special  --UNDERLINE-SPECIAL
+                  Change handling of backspaces, tabs and carriage returns.
+  -V  ........  --version
+                  Display the version number of "less".
+  -w  ........  --hilite-unread
+                  Highlight first new line after forward-screen.
+  -W  ........  --HILITE-UNREAD
+                  Highlight first new line after any forward movement.
+  -x [_N[,...]]  --tabs=[_N[,...]]
+                  Set tab stops.
+  -X  ........  --no-init
+                  Don't use termcap init/deinit strings.
+  -y [_N]  ....  --max-forw-scroll=[_N]
+                  Forward scroll limit.
+  -z [_N]  ....  --window=[_N]
+                  Set size of window.
+  -" [_c[_c]]  .  --quotes=[_c[_c]]
+                  Set shell quote characters.
+  -~  ........  --tilde
+                  Don't display tildes after end of file.
+  -# [_N]  ....  --shift=[_N]
+                  Set horizontal scroll amount (0 = one half screen width).
+
+                --exit-follow-on-close
+                  Exit F command on a pipe when writer closes pipe.
+                --file-size
+                  Automatically determine the size of the input file.
+                --follow-name
+                  The F command changes files if the input file is renamed.
+                --header=[_L[,_C[,_N]]]
+                  Use _L lines (starting at line _N) and _C columns as headers.
+                --incsearch
+                  Search file as each pattern character is typed in.
+                --intr=[_C]
+                  Use _C instead of ^X to interrupt a read.
+                --lesskey-context=_t_e_x_t
+                  Use lesskey source file contents.
+                --lesskey-src=_f_i_l_e
+                  Use a lesskey source file.
+                --line-num-width=[_N]
+                  Set the width of the -N line number field to _N characters.
+                --match-shift=[_N]
+                  Show at least _N characters to the left of a search match.
+                --modelines=[_N]
+                  Read _N lines from the input file and look for vim modelines.
+                --mouse
+                  Enable mouse input.
+                --no-keypad
+                  Don't send termcap keypad init/deinit strings.
+                --no-histdups
+                  Remove duplicates from command history.
+                --no-number-headers
+                  Don't give line numbers to header lines.
+                --no-search-header-lines
+                  Searches do not include header lines.
+                --no-search-header-columns
+                  Searches do not include header columns.
+                --no-search-headers
+                  Searches do not include header lines or columns.
+                --no-vbell
+                  Disable the terminal's visual bell.
+                --redraw-on-quit
+                  Redraw final screen when quitting.
+                --rscroll=[_C]
+                  Set the character used to mark truncated lines.
+                --save-marks
+                  Retain marks across invocations of less.
+                --search-options=[EFKNRW-]
+                  Set default options for every search.
+                --show-preproc-errors
+                  Display a message if preprocessor exits with an error status.
+                --proc-backspace
+                  Process backspaces for bold/underline.
+                --PROC-BACKSPACE
+                  Treat backspaces as control characters.
+                --proc-return
+                  Delete carriage returns before newline.
+                --PROC-RETURN
+                  Treat carriage returns as control characters.
+                --proc-tab
+                  Expand tabs to spaces.
+                --PROC-TAB
+                  Treat tabs as control characters.
+                --status-col-width=[_N]
+                  Set the width of the -J status column to _N characters.
+                --status-line
+                  Highlight or color the entire line containing a mark.
+                --use-backslash
+                  Subsequent options use backslash as escape char.
+                --use-color
+                  Enables colored text.
+                --wheel-lines=[_N]
+                  Each click of the mouse wheel moves _N lines.
+                --wordwrap
+                  Wrap lines at spaces.
+
+
+ ---------------------------------------------------------------------------
+
+                          LLIINNEE EEDDIITTIINNGG
+
+        These keys can be used to edit text being entered 
+        on the "command line" at the bottom of the screen.
+
+ RightArrow ..................... ESC-l ... Move cursor right one character.
+ LeftArrow ...................... ESC-h ... Move cursor left one character.
+ ctrl-RightArrow  ESC-RightArrow  ESC-w ... Move cursor right one word.
+ ctrl-LeftArrow   ESC-LeftArrow   ESC-b ... Move cursor left one word.
+ HOME ........................... ESC-0 ... Move cursor to start of line.
+ END ............................ ESC-$ ... Move cursor to end of line.
+ BACKSPACE ................................ Delete char to left of cursor.
+ DELETE ......................... ESC-x ... Delete char under cursor.
+ ctrl-BACKSPACE   ESC-BACKSPACE ........... Delete word to left of cursor.
+ ctrl-DELETE .... ESC-DELETE .... ESC-X ... Delete word under cursor.
+ ctrl-U ......... ESC (MS-DOS only) ....... Delete entire line.
+ UpArrow ........................ ESC-k ... Retrieve previous command line.
+ DownArrow ...................... ESC-j ... Retrieve next command line.
+ TAB ...................................... Complete filename & cycle.
+ SHIFT-TAB ...................... ESC-TAB   Complete filename & reverse cycle.
+ ctrl-L ................................... Complete filename, list all.
+8f4f3d9 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 192
+e794642 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 191
+2d0c04d - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 190
+1ae9bdc - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 189
+2186313 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 188
+eaf5c4e - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 187
+2cd3188 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 186
+e27dd5f - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 185
+6629d13 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 184
+902b076 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 183
+b517791 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 182
+5046600 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 181
+40f1f0f - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 180
+9e8b730 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 179
+9eaefab - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 178
+c1bcaae - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 177
+c98d2a4 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 176
+338cf4d - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 175
+1b9cc43 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 174
+7a9f1ea - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 173
+8314b4f - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 172
+a89a108 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 171
+6dae27d - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 170
+d255028 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 169
+0c37828 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 168
+e852e53 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 167
+0ff8b16 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 166
+449a5c2 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 165
+990ab06 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 164
+80dc44c - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 163
+ef4900f - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 162
+9be7d31 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 161
+814c5b2 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 160
+f884e6d - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 159
+73215f0 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 158
+cbf93cd - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 157
+17597aa - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 156
+72474f1 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 155
+139186d - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 154
+4ad59e3 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 153
+d5a8901 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 152
+dce0f13 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 151
+3f7c732 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 150
+edc14cf - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 149
+1a67b1b - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 148
+bea65b6 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 147
+119f62c - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 146
+3e4b35b - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 145
+6b27cc4 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 144
+9950bdc - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 143
+15c8997 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 142
+b286077 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 141
+bb71742 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 140
+e0b6bf6 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 139
+867a334 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 138
+ef7899a - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 137
+b3078ce - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 136
+dacae53 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 135
+d458e67 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 134
+62dfa97 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 133
+26cae20 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 132
+7f7eb85 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 131
+f01d93e - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 130
+55900dd - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 129
+2fd2781 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 128
+f0ac855 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 127
+1898310 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 126
+44d0079 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 125
+66a2167 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 124
+8e11fc0 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 123
+a1939af - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 122
+ed1eb5d - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 121
+cc2ea72 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 120
+c12da9e - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 119
+38fcb70 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 118
+e8aae7b - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 117
+912f1df - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 116
+da8b4b8 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 115
+f562ffa - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 114
+9d6e2af - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 113
+4e7c555 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 112
+2b5c5b8 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 111
+fd04a5d - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 110
+bf77390 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 109
+d0ec020 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 108
+4201f37 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 107
+fcdcc0c - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 106
+f1d6c75 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 105
+d43aca1 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 104
+b79521f - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 103
+7209faa - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 102
+45caa5c - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 101
+e9c686d - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 100
+b55ea33 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 99
+0f68c3b - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 98
+d1f2037 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 97
+96f5036 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 96
+f52d2c3 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 95
+d02f781 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 94
+8e1dc74 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 93
+7bd854f - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 92
+6f8750c - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 91
+a3eb75f - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 90
+b0f7dba - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 89
+1792f0b - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 88
+66b5d3f - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 87
+579d192 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 86
+0c09c14 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 85
+8cfa20d - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 84
+408a740 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 83
+6db69d8 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 82
+7ae0be0 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 81
+b7d5f49 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 80
+6f81fdb - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 79
+6779de5 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 78
+db8bc3f - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 77
+23dcaa7 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 76
+8314b80 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 75
+da67f80 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 74
+dd6d13c - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 73
+bbc2acd - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 72
+883e898 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 71
+4aad6a7 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 70
+dbbf694 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 69
+25c25dd - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 68
+b0f49f9 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 67
+943d2b0 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 66
+05fd6d2 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 65
+dc5d24a - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 64
+8010afe - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 63
+e2af0fc - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 62
+07fd9c5 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 61
+3f8997b - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 60
+58b8fb2 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 59
+23ecf86 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 58
+22feeb3 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 57
+4e66756 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 56
+4be64f8 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 55
+e2a7907 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 54
+ba77138 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 53
+0a2afd4 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 52
+9b132a3 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 51
+ad51021 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 50
+380c6e3 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 49
+d6100ba - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 48
+89125f0 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 47
+c62b62d - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 46
+30843c8 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 45
+28673d0 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 44
+3f12008 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 43
+a87c063 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 42
+0b54ec7 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 41
+ead2321 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 40
+a5e27bf - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 39
+3fb03c7 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 38
+21c12e4 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 37
+a9ab31d - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 36
+80bfbc4 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 35
+63cb9c6 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 34
+d0d33c4 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 33
+0db9c4c - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 32
+95c7cfd - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 31
+43b5617 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 30
+6357ac7 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 29
+9332cde - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 28
+b3c7cc6 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 27
+cf9eec8 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 26
+485afc9 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 25
+57a3892 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 24
+1001525 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 23
+2e8afe0 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 22
+a9d05c7 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 21
+e29b20a - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 20
+928ec1d - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 19
+2acd100 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 18
+e0ebc65 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 17
+d9e9967 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 16
+4b95cce - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 15
+e29eea3 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 14
+6208119 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 13
+5a53bb0 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 12
+d9310b3 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 11
+b594382 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 10
+acd120f - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 9
+8518550 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 8
+b56bf11 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 7
+07266d7 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 6
+9fc5360 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 5
+4c7c71f - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 4
+457a742 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 3
+5052f5a - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 2
+a90b397 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 1
+a9f2567 - Abhijeet Kumar, 2 years, 2 months ago : Random Commit 0
